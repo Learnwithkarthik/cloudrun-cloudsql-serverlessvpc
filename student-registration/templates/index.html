@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Student Registration Portal</title>
+
+    <link
+        rel="stylesheet"
+        href="{{ url_for('static', filename='style.css') }}"
+    >
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container header-content">
+            <div>
+                <h1>Student Registration Portal</h1>
+
+                <p>
+                    Cloud Run → VPC Connector → Cloud SQL
+                </p>
+            </div>
+
+            <div class="status-card">
+                <span
+                    class="status-dot
+                    {% if database_status == 'Connected' %}
+                        connected
+                    {% else %}
+                        disconnected
+                    {% endif %}"
+                ></span>
+
+                Database: {{ database_status }}
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+
+        {% if database_error %}
+            <section class="error-message">
+                <strong>Database connection failed</strong>
+
+                <p>{{ database_error }}</p>
+            </section>
+        {% endif %}
+
+        <section class="card">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Register a Student</h2>
+
+                    <p>
+                        Enter the student's information below.
+                    </p>
+                </div>
+            </div>
+
+            <form
+                action="{{ url_for('register') }}"
+                method="POST"
+                class="registration-form"
+            >
+
+                <div class="form-group">
+                    <label for="name">Student Name</label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        placeholder="Enter student name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        placeholder="student@example.com"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="course">Course</label>
+
+                    <select
+                        id="course"
+                        name="course"
+                        required
+                    >
+                        <option value="">
+                            Select a course
+                        </option>
+
+                        <option value="Google Cloud">
+                            Google Cloud
+                        </option>
+
+                        <option value="Azure">
+                            Microsoft Azure
+                        </option>
+
+                        <option value="DevOps">
+                            DevOps
+                        </option>
+
+                        <option value="Python">
+                            Python
+                        </option>
+
+                        <option value="MLOps">
+                            MLOps
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+
+                    <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        placeholder="Enter phone number"
+                    >
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">
+                        Register Student
+                    </button>
+
+                    <button type="reset" class="secondary-button">
+                        Clear
+                    </button>
+                </div>
+
+            </form>
+
+        </section>
+
+        <section class="card">
+
+            <div class="section-heading student-heading">
+                <div>
+                    <h2>Registered Students</h2>
+
+                    <p>
+                        Records retrieved directly from Cloud SQL.
+                    </p>
+                </div>
+
+                <div class="student-count">
+                    {{ students|length }} Students
+                </div>
+            </div>
+
+            {% if students %}
+
+                <div class="table-container">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Student</th>
+                                <th>Email</th>
+                                <th>Course</th>
+                                <th>Phone</th>
+                                <th>Registered</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {% for student in students %}
+
+                                <tr>
+                                    <td>
+                                        {{ student.id }}
+                                    </td>
+
+                                    <td>
+                                        <strong>
+                                            {{ student.name }}
+                                        </strong>
+                                    </td>
+
+                                    <td>
+                                        {{ student.email }}
+                                    </td>
+
+                                    <td>
+                                        <span class="course-badge">
+                                            {{ student.course }}
+                                        </span>
+                                    </td>
+
+                                    <td>
+                                        {{ student.phone or "Not provided" }}
+                                    </td>
+
+                                    <td>
+                                        {{ student.created_at }}
+                                    </td>
+
+                                    <td>
+                                        <form
+                                            action="{{ url_for(
+                                                'delete_student',
+                                                student_id=student.id
+                                            ) }}"
+                                            method="POST"
+                                        >
+                                            <button
+                                                type="submit"
+                                                class="delete-button"
+                                                onclick="
+                                                    return confirm(
+                                                        'Delete this student?'
+                                                    )
+                                                "
+                                            >
+                                                Delete
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            {% else %}
+
+                <div class="empty-state">
+                    <h3>No students registered</h3>
+
+                    <p>
+                        Complete the form above to create the first
+                        student record.
+                    </p>
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>
+                Running on Google Cloud Run with private Cloud SQL
+                connectivity
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
