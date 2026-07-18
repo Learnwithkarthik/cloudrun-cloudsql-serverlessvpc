@@ -1,0 +1,265 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: #f4f7fb;
+    color: #1f2937;
+    font-family: Arial, Helvetica, sans-serif;
+    line-height: 1.6;
+}
+
+.container {
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 24px;
+}
+
+.header {
+    background: linear-gradient(135deg, #174ea6, #4285f4);
+    color: white;
+    padding: 35px 0;
+}
+
+.header-content {
+    align-items: center;
+    display: flex;
+    gap: 25px;
+    justify-content: space-between;
+}
+
+.header h1 {
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+.header p {
+    opacity: 0.9;
+}
+
+.status-card {
+    align-items: center;
+    background: rgba(255, 255, 255, 0.17);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    display: flex;
+    font-weight: bold;
+    gap: 10px;
+    padding: 12px 18px;
+}
+
+.status-dot {
+    border-radius: 50%;
+    display: inline-block;
+    height: 11px;
+    width: 11px;
+}
+
+.connected {
+    background: #34d399;
+}
+
+.disconnected {
+    background: #f87171;
+}
+
+main {
+    padding-bottom: 50px !important;
+    padding-top: 35px !important;
+}
+
+.card {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(31, 41, 55, 0.07);
+    margin-bottom: 30px;
+    padding: 28px;
+}
+
+.section-heading {
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    color: #174ea6;
+    font-size: 23px;
+}
+
+.section-heading p {
+    color: #6b7280;
+    margin-top: 3px;
+}
+
+.student-heading {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+}
+
+.student-count {
+    background: #e8f0fe;
+    border-radius: 20px;
+    color: #174ea6;
+    font-weight: bold;
+    padding: 7px 15px;
+}
+
+.registration-form {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+input,
+select {
+    background: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    padding: 12px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus,
+select:focus {
+    border-color: #4285f4;
+    box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.15);
+    outline: none;
+}
+
+.form-actions {
+    display: flex;
+    gap: 12px;
+    grid-column: 1 / -1;
+}
+
+button {
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 11px 18px;
+}
+
+.primary-button {
+    background: #1a73e8;
+    color: white;
+}
+
+.primary-button:hover {
+    background: #1557b0;
+}
+
+.secondary-button {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th {
+    background: #f8fafc;
+    color: #475569;
+    font-size: 13px;
+    padding: 13px;
+    text-align: left;
+    text-transform: uppercase;
+}
+
+td {
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+    padding: 14px 13px;
+}
+
+tr:hover {
+    background: #f8fbff;
+}
+
+.course-badge {
+    background: #e8f0fe;
+    border-radius: 20px;
+    color: #174ea6;
+    display: inline-block;
+    font-size: 13px;
+    padding: 4px 10px;
+}
+
+.delete-button {
+    background: #fee2e2;
+    color: #b91c1c;
+    padding: 7px 12px;
+}
+
+.delete-button:hover {
+    background: #fecaca;
+}
+
+.empty-state {
+    color: #6b7280;
+    padding: 35px;
+    text-align: center;
+}
+
+.empty-state h3 {
+    color: #374151;
+    margin-bottom: 5px;
+}
+
+.error-message {
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+    border-radius: 10px;
+    color: #991b1b;
+    margin-bottom: 25px;
+    padding: 18px;
+}
+
+footer {
+    background: #1f2937;
+    color: #d1d5db;
+    padding: 22px 0;
+    text-align: center;
+}
+
+@media (max-width: 750px) {
+    .header-content,
+    .student-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .registration-form {
+        grid-template-columns: 1fr;
+    }
+
+    .header h1 {
+        font-size: 25px;
+    }
+
+    .card {
+        padding: 20px;
+    }
+}
